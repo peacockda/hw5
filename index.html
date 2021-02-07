@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIEI-451: Lab</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+  <style>
+    h1 {
+      font-family: Comfortaa, sans-serif;
+    }
+  </style>
+</head>
+
+<body class="p-8">
+  <div class="filters md:flex justify-center space-x-2 md:space-y-0 space-y-2">
+    <div class="text-center text-xl text-purple-500 px-4 md:py-2">Filters:</div>
+    <div class="text-center"><a href="#" id="all-filter" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">All Rides</a></div>
+    <div class="text-center"><a href="#" id="noober-pool-filter" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">Noober Pool</a></div>
+    <div class="text-center"><a href="#" id="noober-purple-filter" class="filter-button inline-block border-2 border-purple-500 text-purple-500 rounded px-4 py-2">Noober Purple</a></div>
+    <div class="text-center"><a href="#" id="noober-xl-filter" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">Noober XL</a></div>
+    <div class="text-center"><a href="#" id="noober-x-filter" class="filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2">Noober X</a></div>
+  </div>
+
+  <div class="rides container text-center mx-auto">
+    <!-- rides HTML inserted via noober.js -->
+  </div>
+
+  <script src="https://kit.fontawesome.com/d0bf6bf32c.js" crossorigin="anonymous"></script>
+  <script src="noober.js"></script>
+</body>
+
+</html>
