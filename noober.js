@@ -71,19 +71,18 @@ window.addEventListener('DOMContentLoaded', async function() {
   // YOUR CODE
   let jsonURL = 'https://kiei451.com/api/rides.json'
 
-  // console.log(json)
-
   let filterButtons = document.querySelectorAll('.filter-button')
   let rideFilter = ''
   for (let i = 0; i < filterButtons.length; i++){
     // console.log(`Found button for ${filterButtons[i].innerHTML}`)
-    filterButtons[i].addEventListener('click', function(event){
+    filterButtons[i].addEventListener('click', async function(event){
+      let filteredRides = []
       let response = await fetch(jsonURL)
-      let json = await response.json()
+      let json = await response.json()        // console.log(json)
+
       
       rideFilter = event.target.innerHTML
       // console.log(`${rideFilter} button clicked.`)
-      filteredRides = []
       if (rideFilter == 'All Rides'){
         // console.log(`Ride filter is ${rideFilter}`)
         filteredRides = json
@@ -103,21 +102,5 @@ window.addEventListener('DOMContentLoaded', async function() {
       renderRides(filteredRides)
     })
   }
-
-  // let filteredRides = []
-  // allRidesElement.addEventListener('click', function(event){
-  //   rideFilter = event.target.innerHTML
-  //   console.log(`Selected filter is ${rideFilter}`)
-  //   document.querySelector('.rides').innerHTML = ''
-  //   renderRides(filteredRides)
-
-  // let allRidesElement = document.querySelector('#all-filter')
-  // let filteredRides = []
-  // allRidesElement.addEventListener('click', function(event){
-  //   rideFilter = event.target.innerHTML
-  //   console.log(`Selected filter is ${rideFilter}`)
-  //   document.querySelector('.rides').innerHTML = ''
-  //   renderRides(filteredRides)
-  // })
 })
 
