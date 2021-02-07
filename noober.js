@@ -70,8 +70,7 @@ function renderRides(ridesArray) {
 window.addEventListener('DOMContentLoaded', async function() {
   // YOUR CODE
   let jsonURL = 'https://kiei451.com/api/rides.json'
-  let response = await fetch(jsonURL)
-  let json = await response.json()
+
   // console.log(json)
 
   let filterButtons = document.querySelectorAll('.filter-button')
@@ -79,6 +78,9 @@ window.addEventListener('DOMContentLoaded', async function() {
   for (let i = 0; i < filterButtons.length; i++){
     // console.log(`Found button for ${filterButtons[i].innerHTML}`)
     filterButtons[i].addEventListener('click', function(event){
+      let response = await fetch(jsonURL)
+      let json = await response.json()
+      
       rideFilter = event.target.innerHTML
       // console.log(`${rideFilter} button clicked.`)
       filteredRides = []
