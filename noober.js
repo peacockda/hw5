@@ -12,24 +12,6 @@ function levelOfService(ride) {
   return levelOfService
 }
 
-let defaultButtonClass = "filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2"
-let purpleButtonClass = "filter-button inline-block border-2 border-purple-500 text-purple-500 rounded px-4 py-2"
-function clearButtonHighlight(filterButtons){
-  for (let k = 0; k < filterButtons.length; k++){
-    if (filterButtons[k].innerHTML != 'Noober Purple'){
-      filterButtons[k].setAttribute('class', defaultButtonClass)
-    } else {
-      filterButtons[k].setAttribute('class', purpleButtonClass)
-    }
-  }
-}
-
-function highlightSelectedButton(target){
-  let elementDefaultFormat = target.getAttribute('class')
-  // console.log(elementDefaultFormat)
-  target.setAttribute('class', elementDefaultFormat + ' bg-purple-100')
-}
-
 function renderRides(ridesArray) {
   for (let i = 0; i < ridesArray.length; i++) {
     let ride = ridesArray[i]
@@ -88,39 +70,54 @@ function renderRides(ridesArray) {
 window.addEventListener('DOMContentLoaded', async function() {
   // YOUR CODE
   let jsonURL = 'https://kiei451.com/api/rides.json'
-
   let filterButtons = document.querySelectorAll('.filter-button')
   let rideFilter = ''
+  let filteredRides = []
 
+  // Variables and functions to handle navigation highlighting
+  let defaultButtonClass = "filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2"
+  let purpleButtonClass = "filter-button inline-block border-2 border-purple-500 text-purple-500 rounded px-4 py-2"
+  function clearButtonHighlight(filterButtons){
+    for (let k = 0; k < filterButtons.length; k++){
+      if (filterButtons[k].innerHTML != 'Noober Purple'){
+        filterButtons[k].setAttribute('class', defaultButtonClass)
+      } else {
+        filterButtons[k].setAttribute('class', purpleButtonClass)
+      }
+    }
+  }
+
+  function highlightSelectedButton(target){
+    let elementDefaultFormat = target.getAttribute('class')
+    target.setAttribute('class', elementDefaultFormat + ' bg-purple-100')
+  }
+
+  // Building events for each filter button
   for (let i = 0; i < filterButtons.length; i++){
-    // console.log(`Found button for ${filterButtons[i].innerHTML}`)
     filterButtons[i].addEventListener('click', async function(event){
-      let filteredRides = []
-      let response = await fetch(jsonURL)
-      let json = await response.json()
-      // console.log(json)
-      
+      // Identify the selected filter and clear the page
       clearButtonHighlight(filterButtons)
       highlightSelectedButton(event.target)
+      document.querySelector('.rides').innerHTML = ''
       
+      // Get the array of all rides
+      let response = await fetch(jsonURL)
+      let json = await response.json()
+      
+      // Set the filter criteria and build the array of filtered ride.
       rideFilter = event.target.innerHTML
-      // console.log(`${rideFilter} button clicked.`)
+      filteredRides = []
       if (rideFilter == 'All Rides'){
-        // console.log(`Ride filter is ${rideFilter}`)
         filteredRides = json
       } else {
-        // console.log(`Looking for ${rideFilter} rides...`)
         for (let j = 0; j < json.length; j++){
-          // console.log(`Found a ${levelOfService(json[j])} ride...`)
           if (levelOfService(json[j]) == rideFilter){
             filteredRides.push(json[j])
-            // console.log(`Adding ${levelOfService(json[i])} ride to filteredRides`)
           }
         }
-        // console.log(`Found ${filteredRides.length} ${rideFilter} rides!`)
       }
-      // console.log(filteredRides)
-      document.querySelector('.rides').innerHTML = ''
+      
+      // Render the array of filtered rides.
       renderRides(filteredRides)
     })
   }
