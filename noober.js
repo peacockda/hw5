@@ -94,7 +94,7 @@ window.addEventListener('DOMContentLoaded', async function() {
       }
       let elementDefaultFormat = event.target.getAttribute('class')
       // console.log(elementDefaultFormat)
-      event.target.setAttribute('class', elementDefaultFormat + ' bg-purple-50')
+      event.target.setAttribute('class', elementDefaultFormat + ' bg-purple-100')
       
       rideFilter = event.target.innerHTML
       // console.log(`${rideFilter} button clicked.`)
