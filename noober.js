@@ -12,6 +12,24 @@ function levelOfService(ride) {
   return levelOfService
 }
 
+let defaultButtonClass = "filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2"
+let purpleButtonClass = "filter-button inline-block border-2 border-purple-500 text-purple-500 rounded px-4 py-2"
+function clearButtonHighlight(filterButtons){
+  for (let k = 0; k < filterButtons.length; k++){
+    if (filterButtons[k].innerHTML != 'Noober Purple'){
+      filterButtons[k].setAttribute('class', defaultButtonClass)
+    } else {
+      filterButtons[k].setAttribute('class', purpleButtonClass)
+    }
+  }
+}
+
+function highlightSelectedButton(target){
+  let elementDefaultFormat = target.getAttribute('class')
+  // console.log(elementDefaultFormat)
+  target.setAttribute('class', elementDefaultFormat + ' bg-purple-100')
+}
+
 function renderRides(ridesArray) {
   for (let i = 0; i < ridesArray.length; i++) {
     let ride = ridesArray[i]
@@ -73,8 +91,6 @@ window.addEventListener('DOMContentLoaded', async function() {
 
   let filterButtons = document.querySelectorAll('.filter-button')
   let rideFilter = ''
-  let defaultButtonClass = "filter-button inline-block border-2 border-blue-500 text-blue-500 rounded px-4 py-2"
-  let purpleButtonClass = "filter-button inline-block border-2 border-purple-500 text-purple-500 rounded px-4 py-2"
 
   for (let i = 0; i < filterButtons.length; i++){
     // console.log(`Found button for ${filterButtons[i].innerHTML}`)
@@ -84,17 +100,8 @@ window.addEventListener('DOMContentLoaded', async function() {
       let json = await response.json()
       // console.log(json)
       
-      // console.log(filterButtons)
-      for (let k = 0; k < filterButtons.length; k++){
-        if (filterButtons[k].innerHTML != 'Noober Purple'){
-          filterButtons[k].setAttribute('class', defaultButtonClass)
-        } else {
-          filterButtons[k].setAttribute('class', purpleButtonClass)
-        }
-      }
-      let elementDefaultFormat = event.target.getAttribute('class')
-      // console.log(elementDefaultFormat)
-      event.target.setAttribute('class', elementDefaultFormat + ' bg-purple-100')
+      clearButtonHighlight(filterButtons)
+      highlightSelectedButton(event.target)
       
       rideFilter = event.target.innerHTML
       // console.log(`${rideFilter} button clicked.`)
