@@ -67,7 +67,55 @@ function renderRides(ridesArray) {
   }
 }
 
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', async function() {
   // YOUR CODE
+  let jsonURL = 'https://kiei451.com/api/rides.json'
+  let response = await fetch(jsonURL)
+  let json = await response.json()
+  // console.log(json)
+
+  let filterButtons = document.querySelectorAll('.filter-button')
+  let rideFilter = ''
+  for (let i = 0; i < filterButtons.length; i++){
+    // console.log(`Found button for ${filterButtons[i].innerHTML}`)
+    filterButtons[i].addEventListener('click', function(event){
+      rideFilter = event.target.innerHTML
+      // console.log(`${rideFilter} button clicked.`)
+      filteredRides = []
+      if (rideFilter == 'All Rides'){
+        // console.log(`Ride filter is ${rideFilter}`)
+        filteredRides = json
+      } else {
+        // console.log(`Looking for ${rideFilter} rides...`)
+        for (let j = 0; j < json.length; j++){
+          // console.log(`Found a ${levelOfService(json[j])} ride...`)
+          if (levelOfService(json[j]) == rideFilter){
+            filteredRides.push(json[j])
+            // console.log(`Adding ${levelOfService(json[i])} ride to filteredRides`)
+          }
+        }
+        // console.log(`Found ${filteredRides.length} ${rideFilter} rides!`)
+      }
+      // console.log(filteredRides)
+      document.querySelector('.rides').innerHTML = ''
+      renderRides(filteredRides)
+    })
+  }
+
+  // let filteredRides = []
+  // allRidesElement.addEventListener('click', function(event){
+  //   rideFilter = event.target.innerHTML
+  //   console.log(`Selected filter is ${rideFilter}`)
+  //   document.querySelector('.rides').innerHTML = ''
+  //   renderRides(filteredRides)
+
+  // let allRidesElement = document.querySelector('#all-filter')
+  // let filteredRides = []
+  // allRidesElement.addEventListener('click', function(event){
+  //   rideFilter = event.target.innerHTML
+  //   console.log(`Selected filter is ${rideFilter}`)
+  //   document.querySelector('.rides').innerHTML = ''
+  //   renderRides(filteredRides)
+  // })
 })
 
