@@ -95,10 +95,9 @@ window.addEventListener('DOMContentLoaded', async function() {
   // Building events for each filter button
   for (let i = 0; i < filterButtons.length; i++){
     filterButtons[i].addEventListener('click', async function(event){
-      // Identify the selected filter and clear the page
+      // Identify the selected filter
       clearButtonHighlight(filterButtons)
       highlightSelectedButton(event.target)
-      document.querySelector('.rides').innerHTML = ''
       
       // Get the array of all rides
       let response = await fetch(jsonURL)
@@ -117,7 +116,8 @@ window.addEventListener('DOMContentLoaded', async function() {
         }
       }
       
-      // Render the array of filtered rides.
+      // Clear the page and render the array of filtered rides.
+      document.querySelector('.rides').innerHTML = ''
       renderRides(filteredRides)
     })
   }
