@@ -79,10 +79,10 @@ window.addEventListener('DOMContentLoaded', async function() {
   let purpleButtonClass = "filter-button inline-block border-2 border-purple-500 text-purple-500 rounded px-4 py-2"
   function clearButtonHighlight(filterButtons){
     for (let k = 0; k < filterButtons.length; k++){
-      if (filterButtons[k].id != 'noober-purple-filter'){
-        filterButtons[k].setAttribute('class', defaultButtonClass)
-      } else {
+      if (filterButtons[k].id == 'noober-purple-filter'){
         filterButtons[k].setAttribute('class', purpleButtonClass)
+      } else {
+        filterButtons[k].setAttribute('class', defaultButtonClass)
       }
     }
   }
