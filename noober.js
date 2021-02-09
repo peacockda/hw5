@@ -87,17 +87,11 @@ window.addEventListener('DOMContentLoaded', async function() {
     }
   }
 
-  function highlightSelectedButton(target){
-    let elementDefaultFormat = target.getAttribute('class')
-    target.setAttribute('class', elementDefaultFormat + ' bg-purple-100')
-  }
-
   // Building events for each filter button
   for (let i = 0; i < filterButtons.length; i++){
     filterButtons[i].addEventListener('click', async function(event){
-      // Identify the selected filter
       clearButtonHighlight(filterButtons)
-      highlightSelectedButton(event.target)
+      event.target.classList.add('bg-purple-100')
       
       // Get the array of all rides
       let response = await fetch(jsonURL)
